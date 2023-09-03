@@ -15,13 +15,14 @@ Resources: https://blog.christian-schou.dk/dockerize-net-core-web-api-with-ms-sq
 
 REQUIREMENTS COVERAGE
 
-● We need a way to create a wallet. ([POST] /wallets)
-● We need a way to add funds to a wallet. ([POST] /wallets/{id}/funds)
-● We need a way to remove funds from a wallet([DELETE] /wallets/{id}/funds).
-● We need a way to query the current state of a wallet.([GET] /wallets/{id})
-● The balance of a wallet cannot be negative. (in scope of [DELETE] /wallets/{id}/funds corresponding check was added to verify if sum of transactions are greater then  zero)
-● A user can’t spend the same funds twice.
-● The client should interact with service with REST APIs(API Implemented according to richardson maturity model).
+
+ - We need a way to create a wallet. ([POST] /wallets)
+ - We need a way to add funds to a wallet. ([POST] /wallets/{id}/funds)
+ - We need a way to remove funds from a wallet([DELETE] /wallets/{id}/funds).
+ - We need a way to query the current state of a wallet.([GET] /wallets/{id})
+ - The balance of a wallet cannot be negative. (in scope of [DELETE] /wallets/{id}/funds corresponding check was added to verify if sum of transactions are greater then  zero)
+ - A user can’t spend the same funds twice.
+ - The client should interact with service with REST APIs(API Implemented according to richardson maturity model).
 
 
  
