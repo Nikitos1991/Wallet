@@ -17,6 +17,7 @@ namespace Wallet.Api.Commands.CreateWallet
             var model = new Database.Models.Wallet
             {
                 Name = request.Name,
+                Currency = request.Currency,
                 Transactions = new List<Database.Models.Transaction>()
             };
 
@@ -33,7 +34,8 @@ namespace Wallet.Api.Commands.CreateWallet
             return new CreateWalletResponse
             {
                 Id = wallet.Id,
-                Name = wallet.Name
+                Name = wallet.Name,
+                Currency = wallet.Currency,
             };
         }
     }

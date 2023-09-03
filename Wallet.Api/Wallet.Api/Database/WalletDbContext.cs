@@ -14,6 +14,14 @@ namespace Wallet.Api.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Models.Wallet>().HasKey(t => t.Id);
+            modelBuilder.Entity<Models.Wallet>().Property(t => t.Id).HasDefaultValueSql("NEWID()");
+            modelBuilder.Entity<Models.Wallet>().Property(t => t.Name).HasMaxLength(50);
+            modelBuilder.Entity<Models.Wallet>().Property(t => t.Currency).HasMaxLength(3);
+
+
+            modelBuilder.Entity<Transaction>().HasKey(t => t.Id);
+
             modelBuilder.Entity<Models.Wallet>()
                    .HasMany(e => e.Transactions)
                    .WithOne(e => e.Wallet)

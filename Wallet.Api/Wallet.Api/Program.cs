@@ -25,7 +25,10 @@ public static class Program
         builder.Services.AddScoped<IWalletsRepository, WalletsRepository>();
         builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-
+        builder.Services.AddMediatR(cfg =>
+        {
+            cfg.RegisterServicesFromAssembly(typeof(Program).Assembly);
+        });
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
