@@ -57,6 +57,12 @@ public static class Program
 
         app.MapControllers();
 
+        using (var scope = app.Services.CreateScope())
+        {
+            var dataContext = scope.ServiceProvider.GetRequiredService<WalletDbContext>();
+            dataContext.Database.Migrate();
+        }
+
         app.Run();
     }
 }
