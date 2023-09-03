@@ -4,25 +4,23 @@ namespace Wallet.Api.Database.Repositories
 {
     public class TransactionsRepository : ITransactionsRepository
     {
-        public TransactionsRepository()
-        {
+        private readonly WalletDbContext _dbContext;
 
+        public TransactionsRepository(WalletDbContext dbContext)
+        {
+            _dbContext = dbContext;
         }
 
         public async Task<Transaction> CreateAsync(Transaction transaction)
         {
-            return await Task.FromResult(new Transaction());
-        }
-
-        public async Task<IEnumerable<Transaction>> GetByWalletIdAsync(Guid walletId)
-        {
-            return await Task.FromResult(new List<Transaction>());
+            await _dbContext.Transactions.AddAsync(transaction);
+            await _dbContext.SaveChangesAsync();
+            return transaction;
         }
     }
 
     public interface ITransactionsRepository
     {
         Task<Transaction> CreateAsync(Transaction transaction);
-        Task<IEnumerable<Transaction>> GetByWalletIdAsync(Guid walletId);
     }
 }

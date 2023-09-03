@@ -1,6 +1,8 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Wallet.Api.Commands.AddFunds;
+using Wallet.Api.Commands.CreateWallet;
+using Wallet.Api.Commands.GetBalance;
 using Wallet.Api.Commands.RemoveFunds;
 
 namespace Wallet.Api.Controllers
@@ -20,9 +22,9 @@ namespace Wallet.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateWalletAsync()
+        public async Task<IActionResult> CreateWalletAsync([FromBody] CreateWalletRequest request)
         {
-            return Ok(await Task.FromResult(1));
+            return Ok(await _mediator.Send(request));
         }
 
         [HttpPost("{id}/funds")]
@@ -42,7 +44,7 @@ namespace Wallet.Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetWalletAsync(Guid id)
         {
-            return Ok(await Task.FromResult(1));
+            return Ok(await _mediator.Send(new GetWalletRequest { WalletId = id }));
         }
     }
 }
