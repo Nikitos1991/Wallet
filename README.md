@@ -24,5 +24,10 @@ REQUIREMENTS COVERAGE
  - A user can’t spend the same funds twice.
  - The client should interact with service with REST APIs(API Implemented according to richardson maturity model).
 
+ - system should be able to handle a large number of concurrent users and
+should be fault-tolerant, meaning that it should continue to operate even if
+some of the nodes in the system fail.
+(health check endpoint support was added, controller endpoint for check was added for load balancer)
+
 
  

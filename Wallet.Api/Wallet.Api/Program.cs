@@ -1,4 +1,7 @@
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Wallet.Api.Database;
 using Wallet.Api.Database.Repositories;
 
@@ -20,6 +23,10 @@ public static class Program
                 options =>
                     options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
+        /*to handle resiliecy*/
+        builder.Services.AddHealthChecks()
+                .AddCheck("Service", () =>
+                    HealthCheckResult.Healthy("The service is working."), new[] { "service" });
 
         builder.Services.AddScoped<ITransactionsRepository, TransactionsRepository>();
         builder.Services.AddScoped<IWalletsRepository, WalletsRepository>();
@@ -30,6 +37,12 @@ public static class Program
             cfg.RegisterServicesFromAssembly(typeof(Program).Assembly);
         });
         var app = builder.Build();
+
+        app.UseHealthChecks("/healthcheck", new HealthCheckOptions
+        {
+            Predicate = reg => reg.Tags.Contains("service"),
+            ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+        });
 
         // Configure the HTTP request pipeline.
         // if (app.Environment.IsDevelopment())
