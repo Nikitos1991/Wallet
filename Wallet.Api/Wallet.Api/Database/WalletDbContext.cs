@@ -7,6 +7,7 @@ namespace Wallet.Api.Database
     {
         public WalletDbContext(DbContextOptions<WalletDbContext> options) : base(options)
         {
+
         }
 
         public DbSet<Models.Wallet> Wallets { get; set; }
